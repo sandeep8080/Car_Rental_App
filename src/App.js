@@ -1,10 +1,11 @@
 import './App.css';
 import React, { useState } from 'react';
-import { Container, AppBar, Toolbar, Typography, Box } from '@material-ui/core'
+import { Container, AppBar, Toolbar, Box } from '@material-ui/core'
 
 import StepOne from './components/formSteps/StepOne';
 import StepTwo from './components/formSteps/StepTwo';
 import StepThree from './components/formSteps/StepThree';
+import StepFour from './components/formSteps/StepFour';
 
 function App() {
   const [data, setData] = useState({
@@ -12,31 +13,57 @@ function App() {
     destination: 'Delhi/DL',
     carType: 'HatchBack',
     travellers: 1,
-    bidPrice: 0,
+    bidPrice: 1,
     bidChecked: false,
-    mNumber: 0,
-    name: '',
-    remark: ''
+    mNumber: 9923362752,
+    name: 'Sandeep Garg',
+    remark: 'Call me'
 
   });
-  const [currentStep, setCurrentStep] = useState(3);
+  const [currentStep, setCurrentStep] = useState(1);
 
   const handleNextStepOne = (newData) => {
-    console.log('App', newData);
     let dataCopy = { ...data };
     dataCopy = { ...dataCopy, ...newData };
-    console.log(data, dataCopy);
     setData(dataCopy);
     setCurrentStep(2);
   };
+
   const handleEdit = () => {
     setCurrentStep(1);
+  };
+
+  const handleEditMNumber = () => {
+    setCurrentStep(2);
+  };
+
+  const handleBid = (newBid) => {
+    let dataCopy = { ...data };
+    dataCopy = { ...dataCopy, ...newBid };
+    setData(dataCopy);
   }
+
+  const handleSendOtp = (newData) => {
+    let dataCopy = { ...data };
+    dataCopy = { ...dataCopy, ...newData };
+    setData(dataCopy);
+    setCurrentStep(3);
+  };
+
+  const moveToCheckOut = (otp) => {
+    console.log(otp);
+    if (otp.join('') === '1234') {
+      setCurrentStep(4);
+    } else {
+      console.log('Invalid OTP');
+    }
+  };
 
   const steps = [
     <StepOne data={data} nextStep={handleNextStepOne} />,
-    <StepTwo data={data} handleEdit={handleEdit} />,
-    <StepThree data={data} handleEdit={handleEdit} />
+    <StepTwo data={data} handleEdit={handleEdit} handleSendOtp={handleSendOtp} handleBid={handleBid} />,
+    <StepThree data={data} handleEdit={handleEdit} handleEditMNumber={handleEditMNumber} moveToCheckOut={moveToCheckOut} />,
+    <StepFour data={data} handleEdit={handleEdit} />
   ];
 
   return (

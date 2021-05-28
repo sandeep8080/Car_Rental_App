@@ -1,43 +1,26 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import { Box, Button, Container, Grid, Typography, TextField } from '@material-ui/core';
+import { Button, TextField, InputAdornment } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-// const useStyles = makeStyles({
-//     gridStyle: {
-//         borderBottom: '1px solid #010a1029',
-//         paddingBottom: '20px'
-//     },
-//     detailsBox: {
-//         display: 'flex',
-//         flexDirection: 'column',
-//         alignItems: 'flex-start'
-//     },
-//     title: {
-//         fontSize: '14px'
-//     },
-//     detailsStyle: {
-//         fontSize: '18px'
-//     },
-//     buttonStyle: {
-//         color: '#0F53FB',
-//         padding: '0',
-//         fontWeight: '600',
-//         textTransform: 'capitalize'
-//     }
-// });
+const useStyles = makeStyles({
+    textFieldMargin: {
+        margin: '10px 0'
+    },
+});
 
-const ContactDtlsForm = ({ data }) => {
+const ContactDtlsForm = ({ data, handleSendOtp }) => {
     const formik = useFormik({
         initialValues: { ...data },
         onSubmit: (values) => {
-            console.log('ContactForm:', values);
+            handleSendOtp(values)
         }
     });
-    //const classes = useStyles();
+    const classes = useStyles();
     return (
         <form onSubmit={formik.handleSubmit}>
             <TextField
+                className={classes.textFieldMargin}
                 required
                 fullWidth
                 id='idMNumber'
@@ -46,11 +29,19 @@ const ContactDtlsForm = ({ data }) => {
                 InputLabelProps={{
                     shrink: true,
                 }}
+                InputProps={{
+                    startAdornment: (
+                        <InputAdornment position="start">
+                            +91-
+                        </InputAdornment>
+                    ),
+                }}
                 label='Enter your 10 digits Mobile number'
                 value={formik.values.mNumber}
                 onChange={formik.handleChange}
             />
             <TextField
+                className={classes.textFieldMargin}
                 fullWidth
                 required
                 id='idName'
@@ -64,6 +55,7 @@ const ContactDtlsForm = ({ data }) => {
                 onChange={formik.handleChange}
             />
             <TextField
+                className={classes.textFieldMargin}
                 id='idRemark'
                 variant='outlined'
                 fullWidth
@@ -80,6 +72,7 @@ const ContactDtlsForm = ({ data }) => {
                 color="primary"
                 fullWidth={true}
                 type="submit"
+                onSubmit={() => formik.handleSubmit}
             >
                 Verify via OTP
             </Button>

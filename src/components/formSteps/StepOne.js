@@ -25,6 +25,8 @@ const StepOne = ({ data, nextStep }) => {
         console.log("StepOne:", values)
         nextStep(values);
     };
+
+
     return (
         <form onSubmit={formik.handleSubmit}>
             <Grid direction="row"
@@ -128,7 +130,7 @@ const StepOne = ({ data, nextStep }) => {
                 type="submit"
             >
                 Enter Bill Details
-                    </Button>
+            np</Button>
         </form>
     )
 };

@@ -26,7 +26,7 @@ const useStyles = makeStyles({
     }
 });
 
-const TripDetails = ({ data }) => {
+const TripDetails = ({ data, edit }) => {
     const classes = useStyles();
     return (
         <Grid
@@ -47,7 +47,12 @@ const TripDetails = ({ data }) => {
                     {data.travellers} Persons-{data.carType}
                 </Typography>
             </Box>
-            <Button className={classes.buttonStyle}>Edit</Button>
+            <Button
+                className={classes.buttonStyle}
+                onClick={edit}
+            >
+                Edit
+            </Button>
         </Grid>
 
 

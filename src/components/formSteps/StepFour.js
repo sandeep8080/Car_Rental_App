@@ -1,8 +1,6 @@
 import {
-    Box, Typography, TextField, InputAdornment,
-    Button, Link
+    Button
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import TripDetails from '../DetailsEditBox';
 import ContactDetails from '../ContactDetails';

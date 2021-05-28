@@ -9,15 +9,15 @@ import StepFour from './components/formSteps/StepFour';
 
 function App() {
   const [data, setData] = useState({
-    sourceLocation: 'Mumbai/MH',
-    destination: 'Delhi/DL',
-    carType: 'HatchBack',
+    sourceLocation: '',
+    destination: '',
+    carType: '',
     travellers: 1,
-    bidPrice: 1,
+    bidPrice: 0,
     bidChecked: false,
-    mNumber: 9923362752,
-    name: 'Sandeep Garg',
-    remark: 'Call me'
+    mNumber: '',
+    name: '',
+    remark: ''
 
   });
   const [currentStep, setCurrentStep] = useState(1);

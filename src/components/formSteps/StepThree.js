@@ -1,5 +1,5 @@
 import {
-    Box, Typography, TextField, InputAdornment,
+    Box, Typography,
     Button, Link
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -50,15 +50,12 @@ const StepThree = ({ data, handleEdit, handleEditMNumber, moveToCheckOut }) => {
         if (isNaN(value)) return false;
         let otpCopy = [...otp];
         otpCopy[index] = value;
-        console.log(otp, otpCopy);
         // setOtp([...otp.map((d, idx) => (idx === index ? value : d))]);
         setOtp(otpCopy);
-        //console.log(otp, otpCopy);
-
         if (e.target.nextSibling) {
             e.target.nextSibling.focus();
         }
-         moveToCheckOut(otpCopy);
+        moveToCheckOut(otpCopy);
     }
     return (
         <>

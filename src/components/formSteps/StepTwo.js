@@ -1,5 +1,5 @@
 import {
-    Box, Typography, TextField, InputAdornment,
+    Box, TextField, InputAdornment,
     Checkbox, FormControlLabel, Button
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';

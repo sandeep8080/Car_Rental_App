@@ -8,11 +8,22 @@ import {
     Box
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import * as Yup from 'yup';
 
 const useStyles = makeStyles({
     textFieldStyle: {
         textAlign: "left",
     },
+});
+
+const validationSchema = Yup.object({
+    sourceLocation: Yup
+        .string(),
+    destination: Yup
+        .string(),
+    travellers: Yup
+        .number()
+        .max(7, 'More than 7 people are not allowed')
 })
 
 const StepOne = ({ data, nextStep }) => {
@@ -22,7 +33,8 @@ const StepOne = ({ data, nextStep }) => {
         onSubmit: (values) => {
             //console.log("stepOne:", values);
             nextStep(values);
-        }
+        },
+        validationSchema: validationSchema
     });
 
     return (
@@ -43,6 +55,8 @@ const StepOne = ({ data, nextStep }) => {
                     label='Source Location'
                     value={formik.values.sourceLocation}
                     onChange={formik.handleChange}
+                    error={formik.touched.sourceLocation && Boolean(formik.errors.sourceLocation)}
+                    helperText={formik.touched.sourceLocation && formik.errors.sourceLocation}
                 />
                 <TextField
                     style={{ width: '260px' }}
@@ -83,7 +97,7 @@ const StepOne = ({ data, nextStep }) => {
                 <TextField
                     className={classes.textFieldStyle}
                     required
-                    id='idDest'
+                    id='idTravellerNo'
                     variant='outlined'
                     fullWidth
                     InputLabelProps={{
@@ -94,6 +108,8 @@ const StepOne = ({ data, nextStep }) => {
                     label='Number of Travellers'
                     value={formik.values.travellers}
                     onChange={formik.handleChange}
+                    error={formik.touched.travellers && Boolean(formik.errors.travellers)}
+                    helperText={formik.touched.travellers && formik.errors.travellers}
                 />
             </Box>
             <Button

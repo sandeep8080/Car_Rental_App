@@ -1,11 +1,8 @@
 import './App.css';
 import React, { useState } from 'react';
 import { Container, AppBar, Toolbar, Box } from '@material-ui/core'
-
-import StepOne from './components/formSteps/StepOne';
-import StepTwo from './components/formSteps/StepTwo';
-import StepThree from './components/formSteps/StepThree';
-import StepFour from './components/formSteps/StepFour';
+import { routeList } from './common/routeConfig';
+import { useRoutes } from 'react-router-dom';
 
 function App() {
   const [data, setData] = useState({
@@ -20,14 +17,16 @@ function App() {
     remark: ''
 
   });
+
+  // TODO need to implement the logic to handle the steps counter
   const [currentStep, setCurrentStep] = useState(1);
 
-  const handleNextStepOne = (newData) => {
-    let dataCopy = { ...data };
-    dataCopy = { ...dataCopy, ...newData };
-    setData(dataCopy);
-    setCurrentStep(2);
-  };
+  // const handleNextStepOne = (newData) => {
+  //   let dataCopy = { ...data };
+  //   dataCopy = { ...dataCopy, ...newData };
+  //   setData(dataCopy);
+  //   setCurrentStep(2);
+  // };
 
   const handleEdit = () => {
     setCurrentStep(1);
@@ -59,13 +58,13 @@ function App() {
     }
   };
 
-  const steps = [
-    <StepOne data={data} nextStep={handleNextStepOne} />,
-    <StepTwo data={data} handleEdit={handleEdit} handleSendOtp={handleSendOtp} handleBid={handleBid} />,
-    <StepThree data={data} handleEdit={handleEdit} handleEditMNumber={handleEditMNumber} moveToCheckOut={moveToCheckOut} />,
-    <StepFour data={data} handleEdit={handleEdit} />
-  ];
-
+  // const steps = [
+  //   <StepOne data={data} nextStep={handleNextStepOne} />,
+  //   <StepTwo data={data} handleEdit={handleEdit} handleSendOtp={handleSendOtp} handleBid={handleBid} />,
+  //   <StepThree data={data} handleEdit={handleEdit} handleEditMNumber={handleEditMNumber} moveToCheckOut={moveToCheckOut} />,
+  //   <StepFour data={data} handleEdit={handleEdit} />
+  // ];
+  const elements = useRoutes(routeList);
   return (
     <div className="App">
       <AppBar position="static" className="appbar" elevation={0}>
@@ -77,7 +76,11 @@ function App() {
         <h1> Place your Bid({currentStep}/4 step) </h1>
       </Box>
       <Container maxWidth="sm" className='form-container'>
-        {steps[currentStep - 1]}
+        {/* {steps[currentStep - 1]} */}
+        <React.Suspense>
+          {elements}
+        </React.Suspense>
+
       </Container>
     </div>
   );

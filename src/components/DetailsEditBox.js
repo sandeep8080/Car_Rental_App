@@ -41,10 +41,10 @@ const TripDetails = ({ data, edit }) => {
                     JOURNEY DETAILS
                 </Typography>
                 <Typography variant="h5" component="h2" className={classes.detailsStyle}>
-                    {data.sourceLocation} - {data.destination}
+                    {data?.sourceLocation || "NA"} - {data?.destination || "NA"}
                 </Typography>
                 <Typography variant="h5" component="h2" className={classes.detailsStyle}>
-                    {data.travellers} Persons-{data.carType}
+                    {data?.travellers || "NA"} Persons-{data?.carType || 'NA'}
                 </Typography>
             </Box>
             <Button

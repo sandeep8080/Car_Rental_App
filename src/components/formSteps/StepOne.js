@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFormik } from 'formik';
+import { useNavigate } from "react-router-dom";
 import {
     TextField,
     MenuItem,
@@ -9,6 +10,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import * as Yup from 'yup';
+import { TRAVEL_DETAIL } from '../../common/constants/routeConstants';
 
 const useStyles = makeStyles({
     textFieldStyle: {
@@ -27,12 +29,14 @@ const validationSchema = Yup.object({
 })
 
 const StepOne = ({ data, nextStep }) => {
+    const navigate = useNavigate();
     const classes = useStyles();
     const formik = useFormik({
         initialValues: { ...data },
         onSubmit: (values) => {
-            //console.log("stepOne:", values);
-            nextStep(values);
+            // TODO updating the store value
+            // Routing to the next page
+            navigate(TRAVEL_DETAIL);
         },
         validationSchema: validationSchema
     });

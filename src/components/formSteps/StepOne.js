@@ -11,6 +11,10 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import * as Yup from 'yup';
 import { TRAVEL_DETAIL } from '../../common/constants/routeConstants';
+import { saveTravelDetails } from '../../common/actions/travelDetailsAction';
+import { useDispatch } from 'react-redux/es/exports';
+import { connect } from 'react-redux';
+import { selectCarType, selectDestination, selectNumberOfTravellers, selectSourceLocation } from '../../common/selectors/travelDetailsSelector';
 
 const useStyles = makeStyles({
     textFieldStyle: {
@@ -28,13 +32,25 @@ const validationSchema = Yup.object({
         .max(7, 'More than 7 people are not allowed')
 })
 
-const StepOne = ({ data, nextStep }) => {
+const StepOne = ({ sourceLocation, destination, carType, numberOfTravellers }) => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const classes = useStyles();
     const formik = useFormik({
-        initialValues: { ...data },
+        initialValues: {
+            sourceLocation,
+            destination,
+            carType,
+            numberOfTravellers
+        },
         onSubmit: (values) => {
-            // TODO updating the store value
+            // updating the Next step count
+            const newValues = {
+                ...values,
+                steps: 2,
+            }
+            // updating the store value
+            dispatch(saveTravelDetails(newValues));
             // Routing to the next page
             navigate(TRAVEL_DETAIL);
         },
@@ -108,12 +124,12 @@ const StepOne = ({ data, nextStep }) => {
                         shrink: true,
                     }}
                     type='number'
-                    name="travellers"
+                    name="numberOfTravellers"
                     label='Number of Travellers'
-                    value={formik.values.travellers}
+                    value={formik.values.numberOfTravellers}
                     onChange={formik.handleChange}
-                    error={formik.touched.travellers && Boolean(formik.errors.travellers)}
-                    helperText={formik.touched.travellers && formik.errors.travellers}
+                    error={formik.touched.numberOfTravellers && Boolean(formik.errors.numberOfTravellers)}
+                    helperText={formik.touched.numberOfTravellers && formik.errors.numberOfTravellers}
                 />
             </Box>
             <Button
@@ -128,4 +144,11 @@ const StepOne = ({ data, nextStep }) => {
     )
 };
 
-export default StepOne;
+const mapStateToProps = (state) => ({
+    sourceLocation: selectSourceLocation(state),
+    destination: selectDestination(state),
+    carType: selectCarType(state),
+    numberOfTravellers: selectNumberOfTravellers(state),
+});
+
+export default connect(mapStateToProps)(StepOne);

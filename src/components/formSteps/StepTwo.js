@@ -1,3 +1,4 @@
+import { connect } from 'react-redux';
 import {
     Box, TextField, InputAdornment,
     Checkbox, FormControlLabel, Button
@@ -7,6 +8,7 @@ import React, { useState } from 'react';
 import TripDetails from '../DetailsEditBox';
 import ContactDtlsForm from '../ContactDetailsForm';
 import { useFormik } from 'formik';
+import { selectBidPrice, selectisBidChecked } from '../../common/selectors/travelDetailsSelector';
 
 const useStyles = makeStyles({
     formStyle: {
@@ -19,24 +21,30 @@ const useStyles = makeStyles({
         marginTop: '40px'
     }
 })
-const StepTwo = ({ data, handleEdit, handleSendOtp, handleBid }) => {
+// const StepTwo = ({ data, handleEdit, handleSendOtp, handleBid }) => {
+const StepTwo = (props) => {
+    const {
+        isBidChecked,
+        bidPrice,
+    } = props;
     const [isShow, setIsShow] = useState(false);
     const [isShowBtn, setIsShowBtn] = useState(true);
     const classes = useStyles();
 
     const formik = useFormik({
-        initialValues: { ...data },
+        initialValues: {
+        },
         onSubmit: (values) => {
-            setIsShow(true);
-            setIsShowBtn(false);
-            handleBid(values);
-            console.log('stepTwo:', values);
+            // setIsShow(true);
+            // setIsShowBtn(false);
+            // handleBid(values);
+            // console.log('stepTwo:', values);
         }
     });
 
     return (
         <>
-            <TripDetails data={data} edit={handleEdit} />
+            <TripDetails />
             <form className={classes.formStyle} onSubmit={formik.handleSubmit}>
                 <Box>
                     <TextField
@@ -81,13 +89,18 @@ const StepTwo = ({ data, handleEdit, handleSendOtp, handleBid }) => {
                         disabled={formik.values.bidPrice ? false : true}
                     >
                         Next
-                </Button>}
+                    </Button>}
 
             </form>
-            {isShow && <ContactDtlsForm data={formik.values} handleSendOtp={handleSendOtp} />}
+            {isShow && <ContactDtlsForm data={formik.values} />}
         </>
     )
 };
 
-export default StepTwo;
+const mapStateToProps = state => ({
+    bitPrice: selectBidPrice(state),
+    isBidChecked: selectisBidChecked(state),
+});
+
+export default connect(mapStateToProps,)(StepTwo);
 

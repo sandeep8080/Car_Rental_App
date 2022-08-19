@@ -5,21 +5,8 @@ import { routeList } from './common/routeConfig';
 import { useRoutes } from 'react-router-dom';
 
 function App() {
-  const [data, setData] = useState({
-    sourceLocation: '',
-    destination: '',
-    carType: '',
-    travellers: 1,
-    bidPrice: 0,
-    bidChecked: false,
-    mNumber: '',
-    name: '',
-    remark: ''
-
-  });
-
   // TODO need to implement the logic to handle the steps counter
-  const [currentStep, setCurrentStep] = useState(1);
+  // const [currentStep, setCurrentStep] = useState(1);
 
   // const handleNextStepOne = (newData) => {
   //   let dataCopy = { ...data };
@@ -28,35 +15,35 @@ function App() {
   //   setCurrentStep(2);
   // };
 
-  const handleEdit = () => {
-    setCurrentStep(1);
-  };
+  // const handleEdit = () => {
+  //   setCurrentStep(1);
+  // };
 
-  const handleEditMNumber = () => {
-    setCurrentStep(2);
-  };
+  // const handleEditMNumber = () => {
+  //   setCurrentStep(2);
+  // };
 
-  const handleBid = (newBid) => {
-    let dataCopy = { ...data };
-    dataCopy = { ...dataCopy, ...newBid };
-    setData(dataCopy);
-  }
+  // const handleBid = (newBid) => {
+  //   let dataCopy = { ...data };
+  //   dataCopy = { ...dataCopy, ...newBid };
+  //   setData(dataCopy);
+  // }
 
-  const handleSendOtp = (newData) => {
-    let dataCopy = { ...data };
-    dataCopy = { ...dataCopy, ...newData };
-    setData(dataCopy);
-    setCurrentStep(3);
-  };
+  // const handleSendOtp = (newData) => {
+  //   let dataCopy = { ...data };
+  //   dataCopy = { ...dataCopy, ...newData };
+  //   setData(dataCopy);
+  //   setCurrentStep(3);
+  // };
 
-  const moveToCheckOut = (otp) => {
-    console.log(otp);
-    if (otp.join('') === '1234') {
-      setCurrentStep(4);
-    } else {
-      console.log('Invalid OTP');
-    }
-  };
+  // const moveToCheckOut = (otp) => {
+  //   console.log(otp);
+  //   if (otp.join('') === '1234') {
+  //     setCurrentStep(4);
+  //   } else {
+  //     console.log('Invalid OTP');
+  //   }
+  // };
 
   // const steps = [
   //   <StepOne data={data} nextStep={handleNextStepOne} />,
@@ -73,7 +60,7 @@ function App() {
         </Toolbar>
       </AppBar>
       <Box className='formHeader'>
-        <h1> Place your Bid({currentStep}/4 step) </h1>
+        <h1> Place your Bid({1}/4 step) </h1>
       </Box>
       <Container maxWidth="sm" className='form-container'>
         {/* {steps[currentStep - 1]} */}

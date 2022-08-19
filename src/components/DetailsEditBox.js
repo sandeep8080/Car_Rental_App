@@ -1,6 +1,9 @@
 import React from 'react';
 import { Box, Button, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+import { selectCarType, selectDestination, selectNumberOfTravellers, selectSourceLocation } from '../common/selectors/travelDetailsSelector';
+
 
 const useStyles = makeStyles({
     gridStyle: {
@@ -26,7 +29,12 @@ const useStyles = makeStyles({
     }
 });
 
-const TripDetails = ({ data, edit }) => {
+const TripDetails = (props) => {
+    const {
+        sourceLocation,
+        destination,
+        carType,
+        numberOfTravellers } = props;
     const classes = useStyles();
     return (
         <Grid
@@ -41,15 +49,15 @@ const TripDetails = ({ data, edit }) => {
                     JOURNEY DETAILS
                 </Typography>
                 <Typography variant="h5" component="h2" className={classes.detailsStyle}>
-                    {data?.sourceLocation || "NA"} - {data?.destination || "NA"}
+                    {sourceLocation} - {destination}
                 </Typography>
                 <Typography variant="h5" component="h2" className={classes.detailsStyle}>
-                    {data?.travellers || "NA"} Persons-{data?.carType || 'NA'}
+                    {numberOfTravellers} Persons-{carType}
                 </Typography>
             </Box>
             <Button
                 className={classes.buttonStyle}
-                onClick={edit}
+                // onClick={edit}
             >
                 Edit
             </Button>
@@ -59,4 +67,11 @@ const TripDetails = ({ data, edit }) => {
     )
 };
 
-export default TripDetails;
+const mapStateToProps = state => ({
+    sourceLocation: selectSourceLocation(state),
+    destination: selectDestination(state),
+    carType: selectCarType(state),
+    numberOfTravellers: selectNumberOfTravellers(state),
+});
+
+export default connect(mapStateToProps)(TripDetails);

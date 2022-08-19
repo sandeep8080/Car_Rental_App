@@ -73,3 +73,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 ### Updates
 - Added routing to toggle between the multistep form [React-router-dom v6]
 - Dynamic routing using useRoutes hook along with lazy loading the components
+- Added Redux implementation to along with selectors using Reselect library
+- Improve the data flow and combine the store with the components
+- Setup Redux Dev tools and its configuration with the browser
+- Used immutable Js to create the state in map

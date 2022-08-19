@@ -9,6 +9,10 @@ import TripDetails from '../DetailsEditBox';
 import ContactDtlsForm from '../ContactDetailsForm';
 import { useFormik } from 'formik';
 import { selectBidPrice, selectisBidChecked } from '../../common/selectors/travelDetailsSelector';
+import { useDispatch } from 'react-redux/es/exports';
+import { useNavigate } from "react-router-dom";
+import { saveStepTwoDetails } from '../../common/actions/travelDetailsAction';
+import { OTP } from '../../common/constants/routeConstants';
 
 const useStyles = makeStyles({
     formStyle: {
@@ -23,6 +27,8 @@ const useStyles = makeStyles({
 })
 // const StepTwo = ({ data, handleEdit, handleSendOtp, handleBid }) => {
 const StepTwo = (props) => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const {
         isBidChecked,
         bidPrice,
@@ -33,12 +39,14 @@ const StepTwo = (props) => {
 
     const formik = useFormik({
         initialValues: {
+            isBidChecked,
+            bidPrice,
         },
         onSubmit: (values) => {
-            // setIsShow(true);
-            // setIsShowBtn(false);
-            // handleBid(values);
-            // console.log('stepTwo:', values);
+            dispatch(saveStepTwoDetails(values));
+            // navigate(OTP);
+            setIsShow(true);
+            setIsShowBtn(false);
         }
     });
 
@@ -73,9 +81,9 @@ const StepTwo = (props) => {
                     className={classes.checkStyle}
                     control={
                         <Checkbox
-                            checked={formik.values.bidChecked}
+                            checked={formik.values.isBidChecked}
                             onChange={formik.handleChange}
-                            name="bidChecked"
+                            name="isBidChecked"
                         />
                     }
                     label="Rate Negiotable"
@@ -89,16 +97,17 @@ const StepTwo = (props) => {
                         disabled={formik.values.bidPrice ? false : true}
                     >
                         Next
-                    </Button>}
+                    </Button>
+                }
 
             </form>
-            {isShow && <ContactDtlsForm data={formik.values} />}
+            {isShow && <ContactDtlsForm />}
         </>
     )
 };
 
 const mapStateToProps = state => ({
-    bitPrice: selectBidPrice(state),
+    bidPrice: selectBidPrice(state),
     isBidChecked: selectisBidChecked(state),
 });
 

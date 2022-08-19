@@ -11,7 +11,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import * as Yup from 'yup';
 import { TRAVEL_DETAIL } from '../../common/constants/routeConstants';
-import { saveTravelDetails } from '../../common/actions/travelDetailsAction';
+import { saveStepOneDetails } from '../../common/actions/travelDetailsAction';
 import { useDispatch } from 'react-redux/es/exports';
 import { connect } from 'react-redux';
 import { selectCarType, selectDestination, selectNumberOfTravellers, selectSourceLocation } from '../../common/selectors/travelDetailsSelector';
@@ -50,7 +50,7 @@ const StepOne = ({ sourceLocation, destination, carType, numberOfTravellers }) =
                 steps: 2,
             }
             // updating the store value
-            dispatch(saveTravelDetails(newValues));
+            dispatch(saveStepOneDetails(newValues));
             // Routing to the next page
             navigate(TRAVEL_DETAIL);
         },

@@ -1,6 +1,10 @@
 import React from 'react';
 import { Box, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux/es/exports';
+import { useNavigate } from "react-router-dom";
+import { selectBidPrice, selectMobileNumber, selectName, selectRemark } from '../common/selectors/travelDetailsSelector';
 
 const useStyles = makeStyles({
     gridStyle: {
@@ -31,8 +35,7 @@ const useStyles = makeStyles({
     }
 });
 
-const ContactDetails = ({ data }) => {
-    console.log('ContactDTLS:',data);
+const ContactDetails = ({ mobileNumber, name, remark, bidPrice }) => {
     const classes = useStyles();
     return (
         <Grid
@@ -47,17 +50,17 @@ const ContactDetails = ({ data }) => {
                     BID DETAILS
                 </Typography>
                 <Typography variant="h5" component="h2" className={classes.detailsStyle}>
-                    {data.mNumber}
+                    {mobileNumber}
                 </Typography>
                 <Typography variant="h5" component="h2" className={classes.detailsStyle}>
-                    {data.name}
+                    {name}
                 </Typography>
                 <Typography variant="h5" component="h2" className={classes.detailsStyle}>
-                    {data.remark}
+                    {remark}
                 </Typography>
             </Box>
             <Typography variant="h5" component="h2" className={classes.detailsStyleBid}>
-                &#x20b9; {data.bidPrice}
+                &#x20b9; {bidPrice}
             </Typography>
         </Grid>
 
@@ -65,4 +68,11 @@ const ContactDetails = ({ data }) => {
     )
 };
 
-export default ContactDetails;
+const mapStateToProps = state => ({
+    mobileNumber: selectMobileNumber(state),
+    name: selectName(state),
+    remark: selectRemark(state),
+    bidPrice: selectBidPrice(state),
+})
+
+export default connect(mapStateToProps)(ContactDetails);

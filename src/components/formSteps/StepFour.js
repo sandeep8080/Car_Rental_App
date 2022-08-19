@@ -4,7 +4,9 @@ import {
 import React from 'react';
 import TripDetails from '../DetailsEditBox';
 import ContactDetails from '../ContactDetails';
-
+import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux/es/exports';
+import { useNavigate } from "react-router-dom";
 
 const StepFour = ({ data, handleEdit }) => {
     return (

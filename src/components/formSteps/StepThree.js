@@ -6,6 +6,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import React, { useState } from 'react';
 import TripDetails from '../DetailsEditBox';
 import ContactDetails from '../ContactDetails';
+import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux/es/exports';
+import { useNavigate } from "react-router-dom";
+import { selectMobileNumber } from '../../common/selectors/travelDetailsSelector';
+import { SUBMIT_BID, TRAVEL_DETAIL } from '../../common/constants/routeConstants';
+
 
 const useStyles = makeStyles({
     textStyle: {
@@ -39,8 +45,9 @@ const useStyles = makeStyles({
 
 
 
-const StepThree = ({ data, handleEdit, handleEditMNumber, moveToCheckOut }) => {
-    console.log('Step Three:', data);
+// const StepThree = ({ data, handleEdit, handleEditMNumber, moveToCheckOut }) => {
+const StepThree = (props) => {
+    const navigate = useNavigate();
     const [otp, setOtp] = useState(new Array(4).fill(''));
     const classes = useStyles();
 
@@ -55,18 +62,23 @@ const StepThree = ({ data, handleEdit, handleEditMNumber, moveToCheckOut }) => {
         if (e.target.nextSibling) {
             e.target.nextSibling.focus();
         }
-        moveToCheckOut(otpCopy);
+        // TODO Need to route to the final step once opt is matched
+        // if (otp.length === 4) {
+        //     navigate(SUBMIT_BID);
+        // }
+
+        // moveToCheckOut(otpCopy);
     }
     return (
         <>
-            <TripDetails data={data} edit={handleEdit} />
-            <ContactDetails data={data} />
+            <TripDetails />
+            <ContactDetails />
             <Box>
                 <Typography variant="h5" component="h2" className={classes.textStyle}>
-                    We’ve sent an OTP to your mobile number, Please enter it below to submit your bid {data.mNumber}
+                    We’ve sent an OTP to your mobile number, Please enter it below to submit your bid +91-{props.mobileNumber}
                     <Button
                         className={classes.editBtnStyle}
-                        onClick={handleEditMNumber}
+                        onClick={() => navigate(TRAVEL_DETAIL)}
                     >
                         Edit
                     </Button>
@@ -92,10 +104,14 @@ const StepThree = ({ data, handleEdit, handleEditMNumber, moveToCheckOut }) => {
                 }}
             >
                 Resend OTP Again
-                </Link>
+            </Link>
         </>
     )
 };
 
-export default StepThree;
+const mapStateToProps = state => ({
+    mobileNumber: selectMobileNumber(state),
+})
+
+export default connect(mapStateToProps)(StepThree);
 

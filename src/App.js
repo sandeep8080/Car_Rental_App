@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React from 'react';
 import { Container, AppBar, Toolbar, Box } from '@material-ui/core'
 import { routeList } from './common/routeConfig';
 import { useRoutes } from 'react-router-dom';
@@ -8,33 +8,6 @@ function App() {
   // TODO need to implement the logic to handle the steps counter
   // const [currentStep, setCurrentStep] = useState(1);
 
-  // const handleNextStepOne = (newData) => {
-  //   let dataCopy = { ...data };
-  //   dataCopy = { ...dataCopy, ...newData };
-  //   setData(dataCopy);
-  //   setCurrentStep(2);
-  // };
-
-  // const handleEdit = () => {
-  //   setCurrentStep(1);
-  // };
-
-  // const handleEditMNumber = () => {
-  //   setCurrentStep(2);
-  // };
-
-  // const handleBid = (newBid) => {
-  //   let dataCopy = { ...data };
-  //   dataCopy = { ...dataCopy, ...newBid };
-  //   setData(dataCopy);
-  // }
-
-  // const handleSendOtp = (newData) => {
-  //   let dataCopy = { ...data };
-  //   dataCopy = { ...dataCopy, ...newData };
-  //   setData(dataCopy);
-  //   setCurrentStep(3);
-  // };
 
   // const moveToCheckOut = (otp) => {
   //   console.log(otp);
@@ -45,12 +18,6 @@ function App() {
   //   }
   // };
 
-  // const steps = [
-  //   <StepOne data={data} nextStep={handleNextStepOne} />,
-  //   <StepTwo data={data} handleEdit={handleEdit} handleSendOtp={handleSendOtp} handleBid={handleBid} />,
-  //   <StepThree data={data} handleEdit={handleEdit} handleEditMNumber={handleEditMNumber} moveToCheckOut={moveToCheckOut} />,
-  //   <StepFour data={data} handleEdit={handleEdit} />
-  // ];
   const elements = useRoutes(routeList);
   return (
     <div className="App">

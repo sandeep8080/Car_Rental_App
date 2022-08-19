@@ -1,8 +1,23 @@
-import { UPDATE_SRC_LOCATION } from "../constants/actionConstants"
+import { UPDATE_STEP_ONE_DETAILS, UPDATE_STEP_TWO_ADDITIONAL_DETAILS, UPDATE_STEP_TWO_DETAILS } from "../constants/actionConstants"
 
-export const saveTravelDetails = (values) => {
+export const saveStepOneDetails = (values) => {
   return {
-    type: UPDATE_SRC_LOCATION,
+    type: UPDATE_STEP_ONE_DETAILS,
     payload: values,
   }
 };
+
+export const saveStepTwoDetails = (values) => {
+  return {
+    type: UPDATE_STEP_TWO_DETAILS,
+    payload: values,
+  }
+};
+
+export const saveStepTwoAdditionalDetails = (values) => {
+  return {
+    type: UPDATE_STEP_TWO_ADDITIONAL_DETAILS,
+    payload: values,
+  }
+}
+

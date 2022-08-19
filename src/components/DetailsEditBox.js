@@ -3,7 +3,8 @@ import { Box, Button, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { selectCarType, selectDestination, selectNumberOfTravellers, selectSourceLocation } from '../common/selectors/travelDetailsSelector';
-
+import { useNavigate } from 'react-router-dom';
+import { HOME } from '../common/constants/routeConstants';
 
 const useStyles = makeStyles({
     gridStyle: {
@@ -35,6 +36,11 @@ const TripDetails = (props) => {
         destination,
         carType,
         numberOfTravellers } = props;
+    const navigate = useNavigate();
+
+    const handleEdit = () => {
+        navigate(HOME);
+    }
     const classes = useStyles();
     return (
         <Grid
@@ -57,7 +63,7 @@ const TripDetails = (props) => {
             </Box>
             <Button
                 className={classes.buttonStyle}
-                // onClick={edit}
+                onClick={handleEdit}
             >
                 Edit
             </Button>

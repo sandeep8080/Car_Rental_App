@@ -20,16 +20,18 @@ export const routeList = [
   {
     description: ' User Travel Details',
     path: TRAVEL_DETAIL,
-    element: <React.Suspense fallback={<div>...Loading !!</div>}>
-      <StepTwo nextStep={OTP} prevStep={HOME} />
-    </React.Suspense>,
+    element:
+      <React.Suspense fallback={<div>...Loading !!</div>}>
+        <StepTwo nextStep={OTP} prevStep={HOME} />
+      </React.Suspense>,
   },
   {
     description: 'OTP Page',
     path: OTP,
-    component: <React.Suspense fallback={<div>...Loading !!</div>}>
-      <StepThree nextStep={SUBMIT_BID} prevStep={TRAVEL_DETAIL} />
-    </React.Suspense>,
+    element:
+      <React.Suspense fallback={<div>...Loading !!</div>}>
+        <StepThree nextStep={SUBMIT_BID} prevStep={TRAVEL_DETAIL} />
+      </React.Suspense>,
   },
   {
     description: 'Submit Travel Bid Page',
